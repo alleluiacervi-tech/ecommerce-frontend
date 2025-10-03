@@ -50,7 +50,8 @@ const Login = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = `/api/auth/google`;
+    const base = process.env.REACT_APP_API_URL || '';
+    window.location.href = `${base}/api/auth/google`;
   };
 
   const handleClose = () => {

@@ -1,6 +1,10 @@
 import { create } from 'zustand';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import API_BASE_URL from '../config/api';
+
+// Configure axios base URL
+axios.defaults.baseURL = API_BASE_URL;
 
 const useStore = create((set, get) => ({
   // -------------------- Auth state --------------------
