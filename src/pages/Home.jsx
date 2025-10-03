@@ -71,7 +71,7 @@ const Home = () => {
     featureProductImages.length
   ]);
 
-  const featuredProducts = products.slice(0, 8);
+  const featuredProducts = Array.isArray(products) ? products.slice(0, 8) : [];
 
   return (
     <div className="min-h-screen">
@@ -521,7 +521,7 @@ const Home = () => {
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            {featuredProducts.map((product) => (
+            {(featuredProducts || []).map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>

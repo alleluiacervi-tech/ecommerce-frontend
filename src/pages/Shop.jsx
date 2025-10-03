@@ -6,6 +6,7 @@ import useStore from '../store/useStore';
 
 const Shop = () => {
   const { products, fetchProducts } = useStore();
+  const safeProducts = Array.isArray(products) ? products : [];
   const [searchTerm, setSearchTerm] = useState('');
   const location = useLocation();
   const initialCategory = useMemo(() => new URLSearchParams(location.search).get('category') || '', [location.search]);
@@ -22,7 +23,7 @@ const Shop = () => {
     setCategory(catFromUrl);
   }, [location.search]);
 
-  const filteredProducts = products
+  const filteredProducts = safeProducts
     .filter(product => 
       product.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
       (category === '' || product.category === category)
@@ -39,7 +40,7 @@ const Shop = () => {
       }
     });
 
-  const categories = [...new Set(products.map(product => product.category))];
+  const categories = [...new Set(safeProducts.map(product => product.category))];
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">

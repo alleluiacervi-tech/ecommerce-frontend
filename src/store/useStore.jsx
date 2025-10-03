@@ -113,9 +113,16 @@ const useStore = create((set, get) => ({
   fetchProducts: async () => {
     try {
       const response = await axios.get('/api/products');
-      set({ products: response.data });
+      const data = response?.data;
+      const products = Array.isArray(data)
+        ? data
+        : Array.isArray(data?.data)
+          ? data.data
+          : [];
+      set({ products });
     } catch (error) {
       console.error('Error fetching products:', error);
+      set({ products: [] });
     }
   }
 }));
